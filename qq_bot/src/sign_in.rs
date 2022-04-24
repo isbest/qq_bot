@@ -43,6 +43,8 @@ async fn sign_in(event: &MessageEvent) -> anyhow::Result<bool> {
         .text()
         .await?;
 
+    println!("{}", serde_json::to_string(&data).unwrap());
+
     let res = serde_json::from_str::<XFResponse>(res.as_str()).unwrap();
 
     match res.parse() {
@@ -51,7 +53,7 @@ async fn sign_in(event: &MessageEvent) -> anyhow::Result<bool> {
             println!("{}", "发送完成");
             Ok(true)
         }
-        Err(e) => {
+        Err(_e) => {
             println!("{}: {:#?}", "解析失败", &res);
             Ok(false)
         }
