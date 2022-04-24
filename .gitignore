@@ -1,6 +1,7 @@
 *.png
 *.token
-*img/
-*target/
+img/
+target/
+.idea/
 *.lock
 *.json
