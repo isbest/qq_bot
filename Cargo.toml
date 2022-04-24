@@ -1,0 +1,3 @@
+[workspace]
+members = ["qq_bot", "xunfei_ocr"]
+
