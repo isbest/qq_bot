@@ -3,7 +3,7 @@ use proc_qq::{
     event, MessageChainParseTrait, MessageContentTrait, MessageEvent, MessageSendToSourceTrait,
     module, Module,
 };
-use proc_qq::re_exports::{anyhow, reqwest, serde_json};
+use proc_qq::re_exports::{reqwest, serde_json};
 use proc_qq::re_exports::reqwest::Url;
 use proc_qq::re_exports::rs_qq::client::event::GroupMessageEvent;
 use xunfei_ocr::App;

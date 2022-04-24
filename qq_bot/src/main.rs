@@ -1,7 +1,7 @@
 use tracing::Level;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
-use proc_qq::Authentication::{QRCode, UinPassword};
+use proc_qq::Authentication::QRCode;
 use proc_qq::ClientBuilder;
 
 mod sign_in;
