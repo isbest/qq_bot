@@ -51,8 +51,8 @@ async fn sign_in(event: &MessageEvent) -> anyhow::Result<bool> {
             println!("{}", "发送完成");
             Ok(true)
         }
-        Err(_e) => {
-            println!("{}", "解析失败");
+        Err(e) => {
+            println!("{}: {}", "解析失败", e);
             Ok(false)
         }
     }
