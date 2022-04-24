@@ -29,10 +29,9 @@ async fn sign_in(event: &MessageEvent) -> anyhow::Result<bool> {
     let config = XFConfig::read_config(url).unwrap();
     let file_path = Path::new(&config.path).join(&config.file_name);
     new_run(&config.uri, &file_path, config.task_num).await.unwrap();
+
     let app = App::new("3f8cb891", "MWIwZWI0OWJmYjhlMjk1OGFhYjFiYTk4", "bd83a0c62c484d9171264cee049a16a3");
-
     let data = XFData::new(app.app_id(), &file_path);
-
     let client = reqwest::Client::new();
 
     let res = client.post(app.build_url().unwrap())
@@ -42,8 +41,6 @@ async fn sign_in(event: &MessageEvent) -> anyhow::Result<bool> {
         .await?
         .text()
         .await?;
-
-    println!("{}", serde_json::to_string(&data).unwrap());
 
     let res = serde_json::from_str::<XFResponse>(res.as_str()).unwrap();
 

@@ -24,8 +24,11 @@ pub struct XFConfig {
 impl XFConfig {
     pub fn read_config(url: Url) -> Result<Self, &'static str> {
         let mut file_name = url.path().replace("/", "");
+        let r_index = file_name.rfind("-");
         file_name.push_str(".jpg");
-        Ok(Self { task_num: 4, uri: url.to_string(), path: String::from("./img"), file_name })
+        let (_, right) = file_name.split_at(r_index.unwrap() + 1);
+
+        Ok(Self { task_num: 4, uri: url.to_string(), path: String::from("./img"), file_name: String::from(right) })
     }
 }
 
