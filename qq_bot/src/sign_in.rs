@@ -52,7 +52,7 @@ async fn sign_in(event: &MessageEvent) -> anyhow::Result<bool> {
             Ok(true)
         }
         Err(e) => {
-            println!("{}: {}", "解析失败", e);
+            println!("{}: {:#?}", "解析失败", &res);
             Ok(false)
         }
     }
