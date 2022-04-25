@@ -1,5 +1,4 @@
 use std::path::Path;
-use tokio::time::Instant;
 use url::Url;
 use xunfei_ocr::App;
 use crate::download::{new_run, XFConfig};
@@ -12,21 +11,18 @@ mod download;
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {
-    let url = Url::parse("https://gchat.qpic.cn/gchatpic_new/1713143151/1070233003-2666728377-785A0EFF27D2004484C1E3A0CDB3AE7F/0?term=2").unwrap();
+    let url = Url::parse("https://gchat.qpic.cn/gchatpic_new/1713143151/522985738-2655748070-A153D83E6DEC52A9E016B889DCBDB0DE/0?term=2").unwrap();
     let config = XFConfig::read_config(url).unwrap();
     let file_path = Path::new(&config.path).join(&config.file_name);
-    let now = Instant::now();
     new_run(&config.uri, &file_path, config.task_num).await.unwrap();
-    println!("elasped time: {}", now.elapsed().as_secs_f32());
+
     let app = App::new("3f8cb891", "MWIwZWI0OWJmYjhlMjk1OGFhYjFiYTk4", "bd83a0c62c484d9171264cee049a16a3");
-
     let data = XFData::new(app.app_id(), &file_path);
-
     let client = reqwest::Client::new();
-
+    let body = serde_json::to_string(&data).unwrap();
     let res = client.post(app.build_url().unwrap())
         .header("Content-type", "application/json")
-        .body(serde_json::to_string(&data).unwrap())
+        .body(body)
         .send()
         .await?
         .text()
