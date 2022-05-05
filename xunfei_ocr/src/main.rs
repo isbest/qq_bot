@@ -1,8 +1,8 @@
 use std::path::Path;
 use url::Url;
 use xunfei_ocr::App;
+use xunfei_ocr::param::XFData;
 use crate::download::{new_run, XFConfig};
-use crate::param::{ XFData};
 use crate::response::XFResponse;
 
 mod param;
@@ -16,13 +16,11 @@ async fn main() -> Result<(), reqwest::Error> {
     let file_path = Path::new(&config.path).join(&config.file_name);
     new_run(&config.uri, &file_path, config.task_num).await.unwrap();
 
-    let app = App::new("3f8cb891", "MWIwZWI0OWJmYjhlMjk1OGFhYjFiYTk4", "bd83a0c62c484d9171264cee049a16a3");
+    // 替换为你自己的
+    let app = App::new("app_id", "app_secret", "app_key");
     let data = XFData::new(app.app_id(), &file_path);
     let client = reqwest::Client::new();
-    let body = serde_json::to_string(&data).unwrap();
-    let res = client.post(app.build_url().unwrap())
-        .header("Content-type", "application/json")
-        .body(body)
+    let body = serde_json::to_string(&data).unwrap(); let res = client.post(app.build_url().unwrap()) .header("Content-type", "application/json") .body(body)
         .send()
         .await?
         .text()
